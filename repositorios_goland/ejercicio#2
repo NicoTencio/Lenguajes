@@ -1,0 +1,43 @@
+package main
+
+import "fmt"
+
+func imprimirFigura(numElement int) {
+	if numElement%2 == 0 { //Valida si el número ingresado no es impar positivo
+		println("El número ingresado no es impar positivo, vuelva a intentarlo")
+		return
+	}
+
+	var numMain = 1 //cantidad de estrellas a imprimir en la primera fila
+	var j, k, p int
+	var numEspacios = numElement / 2 //Genera la posición de la primera estrella
+
+	var estado = false
+	//imprime las estrellas con sus respectivas posiciones y espacios
+	for j = 0; j < numElement; j++ {
+		for k = 0; k < numMain; k++ {
+			if k == 0 && numMain != numElement {
+				for p = 0; p < numEspacios; p++ {
+					fmt.Print("  ")
+				}
+			}
+			fmt.Print("* ")
+		}
+
+		if numMain != numElement && !estado { //valida que ya haya imprimido n estrellas para empezar
+			// a decrementar espacios y estrella
+			numMain += 2
+			numEspacios--
+
+		} else {
+			estado = true
+			numMain -= 2
+			numEspacios++
+		}
+		fmt.Println("")
+	}
+}
+
+func main() {
+	imprimirFigura(21)
+}
