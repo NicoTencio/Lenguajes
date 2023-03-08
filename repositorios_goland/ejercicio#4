@@ -1,0 +1,63 @@
+package main
+
+import (
+	"fmt"
+
+	"golang.org/x/exp/slices"
+)
+
+type person struct {
+	name string
+	age  int
+	id   int
+}
+
+type People []person
+
+var listPeople People
+
+func (p *People) addPerson(name string, age int, id int) {
+	idx := slices.IndexFunc(*p, func(h person) bool { return h.name == name })
+	if idx == -1 {
+		*p = append(*p, person{name, age, id})
+	} else {
+		fmt.Println("cant add existing person to the list")
+	}
+}
+
+func map1[P1, P2 any](list []P1, f func(P1) P2) []P2 {
+	mapped := make([]P2, len(list))
+	for i, e := range list {
+		mapped[i] = f(e)
+	}
+	return mapped
+}
+
+func filter1[T1 any](list []T1, f func(T1) bool) []T1 {
+	filtered := make([]T1, 0)
+
+	for _, element := range list {
+		if f(element) {
+			filtered = append(filtered, element)
+		}
+	}
+	return filtered
+}
+
+func (p *People) personLegalAge() []person {
+	listPeople := filter1(*p, func(h person) bool {
+		return h.age >= 18
+	})
+	return (listPeople)
+}
+
+func main() {
+
+	listPeople.addPerson("Nicole", 20, 01)
+	listPeople.addPerson("Raschell", 20, 02)
+	listPeople.addPerson("Sharon", 19, 03)
+	listPeople.addPerson("Juan", 17, 04)
+
+	fmt.Println(listPeople.personLegalAge())
+
+}
