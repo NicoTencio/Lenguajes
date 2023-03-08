@@ -1,3 +1,5 @@
+//Para que el codigo pueda funcionar, debe de contar con un archivo txt en el proyecto
+//Este debera llamarse por defecto texto.txt
 package main
 
 import (
