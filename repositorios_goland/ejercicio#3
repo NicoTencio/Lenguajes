@@ -1,0 +1,18 @@
+package main
+//import "fmt"
+func rotar(lista *[]string, n int, dir int) {
+	if dir == 0 {
+		// Rotar a la izquierda
+		*lista = append((*lista)[n:], (*lista)[:n]...)
+	} else if dir == 1 {
+		// Rotar a la derecha
+		*lista = append((*lista)[len(*lista)-n:], (*lista)[:len(*lista)-n]...)
+	}
+}
+
+func main() {
+	lista := []string{"a", "b", "c", "d", "f", "h"}
+
+	rotar(&lista, 3, 0)
+	fmt.Println(lista)
+}
