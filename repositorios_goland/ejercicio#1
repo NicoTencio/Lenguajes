@@ -1,0 +1,63 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+func contador() {
+	// Abrir el archivo de texto para lectura
+	//El archivo ya ira adjuntado en la carperta del proyecto
+	file, err := os.Open("texto.txt")
+	if err != nil {
+		fmt.Println("Error al abrir el archivo")
+		return
+	}
+	defer file.Close()
+
+	// Crear un nuevo scanner para leer desde el archivo
+	scanner := bufio.NewScanner(file)
+
+	// Contadores de caracteres, palabras y líneas
+	var caracteres, palabras, lineas int
+
+	// Iterar sobre cada línea del texto
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		// Contar el número de caracteres en la línea
+		var i int
+		for i = 0; i < len(line); i++ {
+			if line[i] != 32 { //El caracter de espacio en ascii es 32, no se suma
+				caracteres++
+			}
+		}
+		// Contar el número de palabras en la línea
+		palabras += len(strings.Fields(line))
+		// Contar la línea actual
+		lineas++
+	}
+
+	// Verificar si hubo algún error en la lectura del scanner
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error al leer del archivo")
+		return
+	}
+	imprimir(caracteres, palabras, lineas)
+
+}
+
+func imprimir(caracteres int, palabras int, lineas int) {
+	// Imprimir los resultados
+	fmt.Println("----------TOTAL----------")
+	fmt.Println("Caracteres: ", caracteres)
+	fmt.Println("Palabras: ", palabras)
+	fmt.Println("Lineas: ", lineas)
+}
+
+/
+func main() {
+	contador()
+}
