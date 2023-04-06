@@ -1,0 +1,6 @@
+//Problema #2
+let rec generar_sec (x: int) (y: int) =
+     if x > y then []
+     else x :: generar_sec (x + 1) y
+let secuenciaFinal = generar_sec 0 5
+printfn "La secuencia es: %A" secuenciaFinal
