@@ -1,0 +1,36 @@
+//Problema #3
+
+type producto ={
+    nombre : string
+    descripcion : string
+    montoVenta : int
+    }
+
+type Productos = producto list
+let mutable factura : Productos = []
+let rangoPagoImpuestos = 20000
+let porcentajeImpuesto = 0.13
+
+let agregarProducto (nom : string) (desc : string) (pre : int32) =
+    let idx = List.tryFindIndex (fun p -> p.nombre = nom) factura
+    match idx with
+    | Some i -> 
+        printfn "El producto que desea añadir ya existe... \tSe modificara su existencia y precio..."
+    | None -> factura <- factura @ [{nombre = nom; descripcion = desc; montoVenta = pre}]
+
+let calcularImpuestoFactura () =
+    let lista = List.filter (fun p -> p.montoVenta > rangoPagoImpuestos) factura
+    let lista2 = List.map (fun p -> int32(float p.montoVenta * porcentajeImpuesto) ) lista
+    List.sum lista2
+
+let calcularMontoFactura () =
+    factura |> List.map (fun p -> p.montoVenta) |> List.sum
+    
+agregarProducto "tarjeta madre" "Asus" 54200
+agregarProducto "mouse" "alámbrico" 15000
+agregarProducto "teclado" "gamer con luces" 30000
+agregarProducto "memoria ssd" "2 gb" 65000
+agregarProducto "cable video" "display port 1m" 18000
+
+printfn "%d" (calcularMontoFactura())
+printfn "%d" (calcularImpuestoFactura())
