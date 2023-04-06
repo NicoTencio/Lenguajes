@@ -1,0 +1,9 @@
+//Problema #1
+let palabras = ["la casa";"perro en casa";"pintando la cerca"]
+
+let funcionFilter (lista: string list) =
+    lista
+    |> List.filter(fun (x:string) -> if x.Contains("la") = true then true else false)
+
+let resultado = funcionFilter palabras
+printfn "%A" resultado
