@@ -1,0 +1,4 @@
+sub_conjunto([], _).
+sub_conjunto([X|XS], YS) :-
+    member(X, YS),
+    sub_conjunto(XS, YS).
