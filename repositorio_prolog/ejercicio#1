@@ -1,0 +1,5 @@
+sub_cadenas(Subcadena, Lista, Filtradas) :-
+    include(sub_atom(Subcadena), Lista, Filtradas).
+
+sub_atom(Subcadena, Cadena) :-
+    sub_atom(Cadena, _, _, _, Subcadena).
